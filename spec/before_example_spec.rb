@@ -20,10 +20,10 @@ RSpec.describe Card do
   it 'has a rank' do
     expect(@card.rank).to eq('Ace')
   end
-  it 'has properties' do
+  it 'has a suit' do
     expect(@card.suit).to eq('spades')
   end
-  it 'has properties' do
+  it 'has a color' do
     expect(@card.color).to eq('black')
   end
 end
