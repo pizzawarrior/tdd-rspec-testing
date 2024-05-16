@@ -11,6 +11,7 @@ class Card
 end
 
 # the `let` method uses MEMOIZATION. It's value is cached for future runs.
+
 # we use the '.' in front of the 'Card' title to indicate it is a class object
 
 # RSpec.describe Card do
