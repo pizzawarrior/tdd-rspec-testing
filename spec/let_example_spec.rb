@@ -11,8 +11,10 @@ class Card
 end
 
 # the `let` method uses MEMOIZATION. It's value is cached for future runs.
+# we use the '.' in front of the 'Card' title to indicate it is a class object
 
-RSpec.describe Card do
+# RSpec.describe Card do
+RSpec.describe 'a .Card has properties' do
   # this card object will only be instantiated for the first time on line 21, then again each time for each example
   # this is called lazy loading
   let(:card) { Card.new('Ace', 'black', 'spades') }
