@@ -1,2 +1,5 @@
 # Add any custom formatting settings here. See this file for ref:
 # https://gist.github.com/jhass/a5ae80d87f18e53e7b56
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
