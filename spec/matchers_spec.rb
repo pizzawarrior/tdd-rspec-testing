@@ -97,6 +97,33 @@ RSpec.describe 'Exploring different matchers' do
     subject { [1, 2, 3] }
     it 'checks that a method changes object state' do
       expect { subject.push(4) }.to change { subject.length }.from(3).to(4)
+      expect { subject.pop }.to change { subject.length }.by(-1)
     end
+  end
+
+  context 'contain exactly matcher' do
+    subject { [0, 1, 2] }
+    it 'should check for the presence of all elements' do
+      # items can appear in any order, as long as all of them are present
+      expect(subject).to contain_exactly(2, 0, 1)
+    end
+  end
+end
+
+class FamousSurfer
+  attr_reader :name, :board_style
+
+  def initialize(name, board_style)
+    @name = name
+    @board_style = board_style
+  end
+end
+
+RSpec.describe 'have attributes matcher' do
+  describe FamousSurfer.new('Kelly Slater', 'short board') do
+    it 'checks for object attributes and proper values' do
+      expect(subject).to have_attributes(board_style: 'short board')
+    end
+    it { is_expected.to have_attributes(name: 'Kelly Slater') }
   end
 end
