@@ -127,3 +127,78 @@ RSpec.describe 'have attributes matcher' do
     it { is_expected.to have_attributes(name: 'Kelly Slater') }
   end
 end
+
+RSpec.describe 'include matcher' do
+  describe 'hot tamale' do
+    it 'checks for substring inclusion' do
+      expect(subject).to include('hot')
+      expect(subject).not_to include('not')
+    end
+  end
+  describe [37, 10, 40, 20] do
+    it 'checks for inclusion regardless of order' do
+      expect(subject).to include(10, 20)
+    end
+    it { is_expected.not_to include(789) }
+  end
+  describe({ a: 13, b: 17 }) do
+    it 'can check for values in key-value pairs' do
+      expect(subject).to include(a: 13)
+    end
+  end
+end
+
+RSpec.describe 'start_with and end_with matchers' do
+  describe 'caterpillar' do
+    it 'should check for substring at beginning or end' do
+      expect(subject).to start_with('cater')
+      expect(subject).to end_with('pillar')
+    end
+  end
+  describe([138, 9, 69]) do
+    it 'should check for substring at beginning or end' do
+      expect(subject).to start_with(138)
+    end
+    it { is_expected.to end_with(69) }
+    it { is_expected.to end_with(9, 69) }
+  end
+end
+
+#  create custom error class to inherit from built in error class
+class CustomError < StandardError; end
+
+RSpec.describe 'raise_error matcher' do
+  def some_method
+    x
+  end
+
+  it 'can check for a specific error' do
+    expect { some_method }.to raise_error(NameError)
+  end
+  it 'can check for a custom error' do
+    expect { raise CustomError }.to raise_error(CustomError)
+  end
+end
+
+class Skateboard
+  def has_pop
+    'snap!'
+  end
+
+  def can_slide
+    'that was dope!'
+  end
+
+  def has_wheels(count)
+    "I have #{count} wheels"
+  end
+end
+
+RSpec.describe Skateboard do
+  it 'confirms that an object can respond to a method' do
+    expect(subject).to respond_to(:has_pop, :can_slide)
+  end
+  it 'can respond to a method with arguments' do
+    expect(subject).to respond_to(:has_wheels).with(1).arguments
+  end
+end
