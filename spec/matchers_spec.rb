@@ -29,7 +29,7 @@ RSpec.describe 'Exploring different matchers' do
     let(:d) { [1, 2, 3] }
     let(:e) { c }
     # equal and be are the same method
-    it 'test for sameness' do
+    it 'test for object identity' do
       expect(e).not_to be(d)
       expect(c).not_to be(d)
       expect(c).to equal(e)
