@@ -48,4 +48,48 @@ RSpec.describe 'Exploring different matchers' do
   describe 100 do
     it { is_expected.to be <= 100 }
   end
+
+  context 'predicate methods and matchers' do
+    it 'can be tested with Ruby methods' do
+      result = 168 / 2
+      expect(result).to be_even
+      expect(result - 1).not_to be_even
+      expect(result - 1).to be_odd
+      expect([]).to be_empty
+    end
+  end
+
+  context 0 do
+    it { is_expected.to be_zero }
+  end
+
+  context 'all-matcher' do
+    it 'allows for aggregate checks' do
+      # this method...
+      [1, 3, 5].each do |val|
+        expect(val).to be_odd
+      end
+    end
+    it 'allows for more concise examples' do
+      # is the same as this:
+      expect([1, 3, 5]).to all(be_odd)
+    end
+  end
+
+  context 'be matchers' do
+    it 'can test for truthiness' do
+      expect(true).to be_truthy
+      expect(false).not_to be_truthy
+      expect('hello').to be_truthy
+      expect([1, 2]).to be_truthy
+      expect(:symbol).to be_truthy
+      expect(nil).to be_falsy
+    end
+    it 'can test for nil' do
+      expect(nil).to be_nil
+
+      my_hash = { a: 5 }
+      expect(my_hash[:b]).to be_nil
+    end
+  end
 end
