@@ -202,3 +202,33 @@ RSpec.describe Skateboard do
     expect(subject).to respond_to(:has_wheels).with(1).arguments
   end
 end
+
+RSpec.describe 'satisfy matcher' do
+  subject { 'aibohphobia' }
+  it 'is a palindrome' do
+    # this is shorthand for satisfy { |value| value == value.reverse }
+    expect(subject).to satisfy(&:reverse)
+  end
+  #   this creates a cleaner error message, should we need it
+  it 'can take a custom error message' do
+    expect(subject).to satisfy('be a palindrome') do |value|
+      value == value.reverse
+    end
+  end
+end
+
+RSpec.describe 25 do
+  it 'can test for multiple matchers' do
+    expect(subject).to be_odd.and be > 20
+  end
+  it { is_expected.to be > 20 and be_odd }
+end
+
+RSpec.describe 'rock lobster' do
+  it 'supports multiple matches on a single line' do
+    expect(subject).to start_with('rock').and(end_with('lobster'))
+  end
+  it 'can use an or method' do
+    expect(subject).to include('rock') or include('lobster')
+  end
+end
