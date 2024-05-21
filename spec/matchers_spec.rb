@@ -232,3 +232,7 @@ RSpec.describe 'rock lobster' do
     expect(subject).to include('rock') or include('lobster')
   end
 end
+
+RSpec.describe [4, 8, 15, 16, 23, 42] do
+  it { is_expected.to include(42).and start_with(4, 8, 15) }
+end
