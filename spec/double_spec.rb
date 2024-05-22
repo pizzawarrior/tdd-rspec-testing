@@ -46,6 +46,32 @@ class SurfMovie
   end
 end
 
-surfboard = Surfboard.new('Mayhem')
-surf_movie = SurfMovie.new(surfboard)
-surf_movie.start_filming
+# surfboard = Surfboard.new('Mayhem')
+# surf_movie = SurfMovie.new(surfboard)
+# surf_movie.start_filming
+
+RSpec.describe SurfMovie do
+  # use a double to simulate the Surfboard
+  # note that rental_board has the exact same public interface as the surfboard class
+  # this is called polymorphism. The class itself does not matter as long as the same methods are available
+  let(:rental_board) { double('Rusty', waxed?: true, shred: 'once I get used to it', fin_boxes: 2) }
+  subject { described_class.new(rental_board) }
+
+  describe '#start_filming method' do
+    it 'expects a rental_board to have 3 properties' do
+      expect(rental_board).to receive(:waxed?)
+      expect(rental_board).to receive(:shred)
+      expect(rental_board).to receive(:fin_boxes)
+      subject.start_filming
+    end
+    it 'can check that a method is invoked exactly once' do
+      expect(rental_board).to receive(:shred).once
+      subject.start_filming
+    end
+    it 'can count the num of times a method is invoked' do
+      expect(rental_board).to receive(:shred).exactly(2).times
+      subject.start_filming
+      subject.start_filming
+    end
+  end
+end
