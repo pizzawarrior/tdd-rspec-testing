@@ -23,6 +23,7 @@ RSpec.describe ActiveAccount do
   let(:customer) { instance_double(Customer) }
 
   before do
+    # mock Customer class method
     allow(Customer).to receive(:new).and_return(customer)
   end
 
